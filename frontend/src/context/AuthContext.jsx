@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { authAPI } from '../services/api';
+import { supabase } from '../config/supabase';
 
 const AuthContext = createContext(null);
 
@@ -25,7 +26,66 @@ export const AuthProvider = ({ children }) => {
             setUser(JSON.parse(storedUser));
         }
         setLoading(false);
+
+        // Listen for Supabase auth changes (for social login redirect)
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+            if (event === 'SIGNED_IN' && session) {
+                await handleSocialLogin(session);
+            }
+        });
+
+        return () => subscription.unsubscribe();
     }, []);
+
+    const handleSocialLogin = async (session) => {
+        try {
+            setLoading(true);
+            const { user: sbUser } = session;
+
+            // Extract metadata
+            const firstName = sbUser.user_metadata?.full_name?.split(' ')[0] || sbUser.user_metadata?.first_name || '';
+            const lastName = sbUser.user_metadata?.full_name?.split(' ').slice(1).join(' ') || sbUser.user_metadata?.last_name || '';
+
+            const socialData = {
+                email: sbUser.email,
+                supabaseId: sbUser.id,
+                firstName,
+                lastName,
+                avatarUrl: sbUser.user_metadata?.avatar_url
+            };
+
+            // Notify backend to sync/create social user
+            const response = await authAPI.socialLogin(socialData);
+            const { user, token, refreshToken } = response.data;
+
+            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('token', token);
+            localStorage.setItem('refreshToken', refreshToken);
+
+            setUser(user);
+        } catch (err) {
+            console.error('Social login sync failed:', err);
+            setError('Failed to sync social login');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const loginWithGoogle = async () => {
+        try {
+            setError(null);
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo: window.location.origin
+                }
+            });
+            if (error) throw error;
+        } catch (err) {
+            setError(err.message || 'Google login failed');
+            return { success: false, error: err.message };
+        }
+    };
 
     const register = async (userData) => {
         try {
@@ -65,11 +125,12 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const logout = () => {
+    const logout = async () => {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
         setUser(null);
+        await supabase.auth.signOut();
     };
 
     const updateUser = (updatedUser) => {
@@ -83,6 +144,7 @@ export const AuthProvider = ({ children }) => {
         error,
         register,
         login,
+        loginWithGoogle,
         logout,
         updateUser,
         isAuthenticated: !!user,

@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
     const navigate = useNavigate();
-    const { login, error: authError } = useAuth();
+    const { login, loginWithGoogle, error: authError } = useAuth();
 
     const [formData, setFormData] = useState({
         email: '',
@@ -19,6 +19,15 @@ const Login = () => {
             [e.target.name]: e.target.value,
         });
         setError('');
+    };
+
+    const handleGoogleLogin = async () => {
+        setLoading(true);
+        const result = await loginWithGoogle();
+        if (result && !result.success) {
+            setError(result.error);
+            setLoading(false);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -117,6 +126,25 @@ const Login = () => {
                             {loading ? 'Signing in...' : 'Sign In'}
                         </button>
                     </form>
+
+                    {/* Social Login Divider */}
+                    <div className="my-8 flex items-center">
+                        <div className="flex-1 border-t border-gray-200"></div>
+                        <span className="mx-4 text-gray-400 text-xs font-black uppercase tracking-widest">or continue with</span>
+                        <div className="flex-1 border-t border-gray-200"></div>
+                    </div>
+
+                    {/* Social Buttons */}
+                    <div className="space-y-4">
+                        <button
+                            onClick={handleGoogleLogin}
+                            disabled={loading}
+                            className="w-full flex items-center justify-center space-x-3 py-4 bg-white border border-gray-200 rounded-2xl hover:bg-gray-50 transition-all font-bold text-sm shadow-sm"
+                        >
+                            <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
+                            <span>Sign in with Google</span>
+                        </button>
+                    </div>
 
                     {/* Register Link */}
                     <div className="mt-6 text-center">

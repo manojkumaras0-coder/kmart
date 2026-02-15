@@ -291,3 +291,38 @@ export const verifyEmail = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+export const socialLogin = async (req, res) => {
+    try {
+        const { email, supabaseId, firstName, lastName, avatarUrl } = req.body;
+        if (!email) return res.status(400).json({ error: 'Email is required' });
+
+        let { data: user } = await supabase.from('users').select('*').eq('email', email).maybeSingle();
+
+        if (!user) {
+            const { data: newUser, error: createError } = await supabase.from('users').insert([{
+                email, supabase_uid: supabaseId, first_name: firstName, last_name: lastName,
+                avatar_url: avatarUrl, is_verified: true, role: 'user', auth_provider: 'google'
+            }]).select().single();
+            if (createError) throw createError;
+            user = newUser;
+        } else {
+            const updates = {};
+            if (!user.supabase_uid) updates.supabase_uid = supabaseId;
+            if (!user.avatar_url) updates.avatar_url = avatarUrl;
+            if (Object.keys(updates).length > 0) {
+                const { data: updatedUser } = await supabase.from('users').update(updates).eq('id', user.id).select().single();
+                if (updatedUser) user = updatedUser;
+            }
+        }
+
+        res.json({
+            user: { id: user.id, email: user.email, firstName: user.first_name, lastName: user.last_name, role: user.role, avatarUrl: user.avatar_url },
+            token: generateToken(user),
+            refreshToken: generateRefreshToken(user)
+        });
+    } catch (error) {
+        console.error('Social login error:', error);
+        res.status(500).json({ error: 'Failed to synchronize social login' });
+    }
+};

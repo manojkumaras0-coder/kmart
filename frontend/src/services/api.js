@@ -46,6 +46,7 @@ export const authAPI = {
     forgotPassword: (email) => api.post('/auth/forgot-password', { email }),
     resetPassword: (token, newPassword) => api.post('/auth/reset-password', { token, newPassword }),
     verifyEmail: (token) => api.post('/auth/verify-email', { token }),
+    socialLogin: (data) => api.post('/auth/social-login', data),
 };
 
 // Products API (to be implemented)
