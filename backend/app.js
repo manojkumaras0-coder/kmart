@@ -12,7 +12,10 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: process.env.FRONTEND_URL || '*',
+    credentials: true
+}));
 
 // Stripe Webhook MUST come before express.json() to get raw body
 app.post('/api/payment/webhook', express.raw({ type: 'application/json' }), handleWebhook);
