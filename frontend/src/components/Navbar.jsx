@@ -18,7 +18,7 @@ const Navbar = () => {
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
     return (
-        <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-50">
+        <header className={`${isMenuOpen ? 'bg-white' : 'bg-white/80 backdrop-blur-md'} shadow-sm sticky top-0 z-50 border-b border-gray-50 transition-colors duration-300`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-5">
                 <div className="flex items-center justify-between">
                     {/* Logo - Premium Branding */}
