@@ -56,7 +56,7 @@ const Contact = () => {
                                     <div className="w-14 h-14 bg-primary-50 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-primary-600 group-hover:text-white transition-all shadow-sm">📧</div>
                                     <div>
                                         <h4 className="font-black text-gray-900 text-sm uppercase tracking-widest mb-1">Electronic Mail</h4>
-                                        <p className="text-gray-500 font-medium italic">concierge@kmart.com</p>
+                                        <p className="text-gray-500 font-medium italic">manojkumaras0@gmail.com</p>
                                     </div>
                                 </div>
 
@@ -112,7 +112,7 @@ const Contact = () => {
                                                 onChange={handleChange}
                                                 required
                                                 className="w-full px-8 py-5 rounded-2xl bg-gray-50 border border-transparent focus:bg-white focus:border-primary-500/30 outline-none transition-all font-bold text-gray-900 placeholder:text-gray-300"
-                                                placeholder="manoj@example.com"
+                                                placeholder="manojkumaras0@gmail.com"
                                             />
                                         </div>
                                     </div>
