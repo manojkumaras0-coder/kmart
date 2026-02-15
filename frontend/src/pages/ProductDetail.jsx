@@ -52,10 +52,10 @@ const ProductDetail = () => {
         return (
             <div className="min-h-screen bg-white">
                 <Navbar />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-                        <div className="animate-pulse bg-gray-100 rounded-[2.5rem] aspect-square"></div>
-                        <div className="space-y-8 py-10">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24 animate-pulse">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20">
+                        <div className="bg-gray-100 rounded-[2rem] md:rounded-[2.5rem] aspect-square"></div>
+                        <div className="space-y-8 py-6 md:py-10">
                             <div className="h-4 bg-gray-100 rounded-full w-24"></div>
                             <div className="h-12 bg-gray-100 rounded-full w-full"></div>
                             <div className="h-8 bg-gray-100 rounded-full w-1/3"></div>
@@ -100,10 +100,10 @@ const ProductDetail = () => {
         <div className="min-h-screen bg-white">
             <Navbar />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-24">
                 {/* Refined Breadcrumb */}
-                <nav className="mb-12">
-                    <ol className="flex items-center space-x-4 text-xs font-black uppercase tracking-[0.25em] text-gray-400">
+                <nav className="mb-8 md:mb-12 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0">
+                    <ol className="flex items-center space-x-4 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] text-gray-400 whitespace-nowrap">
                         <li><Link to="/" className="hover:text-primary-600 transition-colors">Home</Link></li>
                         <li><span className="opacity-30">/</span></li>
                         <li><Link to="/products" className="hover:text-primary-600 transition-colors">Marketplace</Link></li>
@@ -112,57 +112,57 @@ const ProductDetail = () => {
                     </ol>
                 </nav>
 
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] gap-20 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] gap-10 md:gap-20 items-start">
                     {/* Left: Cinematic Image Section */}
-                    <div className="space-y-8">
+                    <div className="space-y-6 md:space-y-8">
                         <div className="relative group">
-                            <div className="absolute -inset-4 bg-primary-100/30 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            <div className="relative aspect-square rounded-[2.5rem] overflow-hidden bg-gray-50 border border-transparent group-hover:border-primary-100 transition-all cursor-zoom-in">
+                            <div className="absolute -inset-4 bg-primary-100/30 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity hidden md:block"></div>
+                            <div className="relative aspect-square rounded-[2rem] md:rounded-[2.5rem] overflow-hidden bg-gray-50 border border-transparent group-hover:border-primary-100 transition-all cursor-zoom-in shadow-xl md:shadow-2xl">
                                 {imageError || !product.image_url ? (
                                     <div className="w-full h-full flex flex-col items-center justify-center text-gray-300">
-                                        <span className="text-9xl mb-4 opacity-50">🛒</span>
-                                        <span className="text-sm font-black uppercase tracking-widest">Handpicked for you</span>
+                                        <span className="text-7xl md:text-9xl mb-4 opacity-50">🛒</span>
+                                        <span className="text-[10px] md:text-sm font-black uppercase tracking-widest text-center px-4">Handpicked for you</span>
                                     </div>
                                 ) : (
                                     <img
                                         src={product.image_url}
                                         alt={product.name}
-                                        className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+                                        className="w-full h-full object-cover transition-transform duration-[1.5s] md:group-hover:scale-110"
                                         onError={() => setImageError(true)}
                                     />
                                 )}
 
                                 {hasDiscount && (
-                                    <div className="absolute top-8 left-8 bg-white/90 backdrop-blur-md px-6 py-2 rounded-full shadow-xl">
-                                        <span className="text-red-600 font-black text-sm uppercase tracking-widest">-{discountPercentage}% Edition</span>
+                                    <div className="absolute top-4 left-4 md:top-8 md:left-8 bg-white/90 backdrop-blur-md px-4 md:px-6 py-1.5 md:py-2 rounded-full shadow-lg">
+                                        <span className="text-red-600 font-black text-[10px] md:text-sm uppercase tracking-widest">-{discountPercentage}% Edition</span>
                                     </div>
                                 )}
                             </div>
                         </div>
 
                         {/* Interactive Info Cards */}
-                        <div className="grid grid-cols-3 gap-6">
-                            <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100">
-                                <span className="text-2xl mb-2 block">🌿</span>
-                                <span className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Source</span>
-                                <span className="text-xs font-bold text-gray-900 lowercase italic">Farm Fresh</span>
+                        <div className="grid grid-cols-3 gap-3 md:gap-6">
+                            <div className="p-4 md:p-6 bg-gray-50 rounded-2xl md:rounded-3xl border border-gray-100">
+                                <span className="text-xl md:text-2xl mb-1 md:mb-2 block">🌿</span>
+                                <span className="block text-[8px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Source</span>
+                                <span className="text-[10px] md:text-xs font-bold text-gray-900 lowercase italic">Farm Fresh</span>
                             </div>
-                            <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100">
-                                <span className="text-2xl mb-2 block">🚛</span>
-                                <span className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Speed</span>
-                                <span className="text-xs font-bold text-gray-900 lowercase italic">2hr Delivery</span>
+                            <div className="p-4 md:p-6 bg-gray-50 rounded-2xl md:rounded-3xl border border-gray-100">
+                                <span className="text-xl md:text-2xl mb-1 md:mb-2 block">🚛</span>
+                                <span className="block text-[8px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Speed</span>
+                                <span className="text-[10px] md:text-xs font-bold text-gray-900 lowercase italic">2hr Delivery</span>
                             </div>
-                            <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100">
-                                <span className="text-2xl mb-2 block">🍎</span>
-                                <span className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Type</span>
-                                <span className="text-xs font-bold text-gray-900 lowercase italic">Pure Organic</span>
+                            <div className="p-4 md:p-6 bg-gray-50 rounded-2xl md:rounded-3xl border border-gray-100">
+                                <span className="text-xl md:text-2xl mb-1 md:mb-2 block">🍎</span>
+                                <span className="block text-[8px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Type</span>
+                                <span className="text-[10px] md:text-xs font-bold text-gray-900 lowercase italic">Pure Organic</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Right: Technical Spec & Add to Cart Container */}
-                    <div className="lg:sticky lg:top-24 space-y-12">
-                        <div className="space-y-6">
+                    <div className="lg:sticky lg:top-24 space-y-10 md:space-y-12">
+                        <div className="space-y-4 md:space-y-6">
                             <div className="flex items-center space-x-3">
                                 <span className="px-3 py-1 bg-primary-50 text-primary-600 rounded-lg text-[10px] font-black uppercase tracking-widest">
                                     {product.category || 'Limited Edition'}
@@ -170,7 +170,7 @@ const ProductDetail = () => {
                                 {product.stock_quantity > 0 ? (
                                     <span className="text-[10px] font-black text-green-600 uppercase tracking-widest flex items-center">
                                         <span className="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                                        Available in Aisle {Math.floor(Math.random() * 12) + 1}
+                                        Available In-Store
                                     </span>
                                 ) : (
                                     <span className="text-[10px] font-black text-red-600 uppercase tracking-widest">
@@ -179,45 +179,45 @@ const ProductDetail = () => {
                                 )}
                             </div>
 
-                            <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">{product.name}</h1>
+                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-2 md:mb-4 leading-tight italic font-serif ">{product.name}</h1>
 
                             {inCartQty > 0 && (
-                                <div className="inline-flex items-center space-x-3 bg-primary-50 text-primary-700 px-6 py-2 rounded-2xl mb-8 border border-primary-100">
+                                <div className="inline-flex items-center space-x-3 bg-primary-50 text-primary-700 px-4 md:px-6 py-2 rounded-2xl mb-4 md:mb-8 border border-primary-100">
                                     <span className="flex h-3 w-3 relative">
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-3 w-3 bg-primary-500"></span>
                                     </span>
-                                    <span className="font-bold text-sm">{inCartQty} already in your collection</span>
+                                    <span className="font-bold text-xs md:text-sm">{inCartQty} already in your collection</span>
                                 </div>
                             )}
 
                             <div className="flex items-baseline space-x-4">
-                                <div className="text-5xl font-black text-primary-600 tracking-tighter">
+                                <div className="text-4xl md:text-5xl font-black text-primary-600 tracking-tighter">
                                     ${displayPrice.toFixed(2)}
                                 </div>
                                 {hasDiscount && (
-                                    <div className="text-2xl text-gray-300 font-bold line-through">
+                                    <div className="text-xl md:text-2xl text-gray-300 font-bold line-through">
                                         ${product.price.toFixed(2)}
                                     </div>
                                 )}
-                                <div className="text-sm text-gray-400 font-bold tracking-widest uppercase">
+                                <div className="text-[10px] md:text-sm text-gray-400 font-bold tracking-widest uppercase">
                                     Per {product.unit}
                                 </div>
                             </div>
 
-                            <p className="text-lg text-gray-500 leading-relaxed font-medium italic">
+                            <p className="text-base md:text-lg text-gray-500 leading-relaxed font-medium italic">
                                 "{product.description || 'Experience the unparalleled quality and refined taste of our seasonal selection, handpicked for those who value excellence.'}"
                             </p>
                         </div>
 
                         {/* Order Configuration Box */}
-                        <div className="bg-gray-50 rounded-[2.5rem] p-10 space-y-8 border border-gray-100 shadow-inner">
-                            <div className="flex items-center justify-between">
-                                <span className="text-sm font-black uppercase tracking-widest text-gray-900">Select Quantity</span>
-                                <div className="flex items-center bg-white rounded-2xl p-1 shadow-sm border border-gray-100">
+                        <div className="bg-gray-50 rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-10 space-y-6 md:space-y-8 border border-gray-100 shadow-inner">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-4 sm:space-y-0">
+                                <span className="text-xs md:text-sm font-black uppercase tracking-widest text-gray-900 text-center sm:text-left">Select Quantity</span>
+                                <div className="flex items-center bg-white rounded-2xl p-1 shadow-sm border border-gray-100 justify-center">
                                     <button
                                         onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                        className="w-12 h-12 flex items-center justify-center text-xl font-light hover:bg-gray-50 rounded-xl transition-colors"
+                                        className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center text-xl font-light hover:bg-gray-50 rounded-xl transition-colors"
                                         disabled={product.stock_quantity === 0}
                                     >
                                         −
@@ -226,11 +226,11 @@ const ProductDetail = () => {
                                         type="number"
                                         value={quantity}
                                         readOnly
-                                        className="w-16 text-center font-black text-xl bg-transparent outline-none"
+                                        className="w-12 md:w-16 text-center font-black text-lg md:text-xl bg-transparent outline-none"
                                     />
                                     <button
                                         onClick={() => setQuantity(Math.min(product.stock_quantity, quantity + 1))}
-                                        className="w-12 h-12 flex items-center justify-center text-xl font-light hover:bg-gray-50 rounded-xl transition-colors"
+                                        className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center text-xl font-light hover:bg-gray-50 rounded-xl transition-colors"
                                         disabled={product.stock_quantity === 0}
                                     >
                                         +
@@ -238,26 +238,25 @@ const ProductDetail = () => {
                                 </div>
                             </div>
 
-                            <div className="flex space-x-4">
+                            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                                 <button
                                     onClick={handleAddToCart}
                                     disabled={product.stock_quantity === 0 || adding}
-                                    className="flex-1 btn-primary py-5 rounded-[2rem] text-xl font-black shadow-2xl shadow-primary-600/30 flex items-center justify-center space-x-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="flex-1 bg-gray-900 text-white py-5 rounded-2xl text-lg font-black shadow-xl flex items-center justify-center space-x-4 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-black transition-all"
                                 >
                                     {adding ? (
                                         <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
                                     ) : (
                                         <>
                                             <span>Add to Collection</span>
-                                            <span className="text-sm opacity-60">|</span>
-                                            <span className="text-sm opacity-80 uppercase tracking-widest">+ {quantity} items</span>
+                                            <span className="text-xs opacity-60">|</span>
+                                            <span className="text-xs opacity-80 uppercase tracking-widest">+{quantity}</span>
                                         </>
                                     )}
-                                    <div className="absolute inset-x-0 bottom-0 h-1 bg-primary-500 transform translate-y-2 group-hover:translate-y-0 transition-transform"></div>
                                 </button>
                                 <button
                                     onClick={() => navigate(-1)}
-                                    className="w-20 py-6 bg-white border border-gray-200 rounded-[1.5rem] flex items-center justify-center hover:bg-gray-50 transition-all font-black"
+                                    className="sm:w-20 py-5 bg-white border border-gray-200 rounded-2xl flex items-center justify-center hover:bg-gray-50 transition-all font-black text-xl"
                                 >
                                     ←
                                 </button>
@@ -266,7 +265,7 @@ const ProductDetail = () => {
                             {product.stock_quantity > 0 && (
                                 <div className="flex justify-between items-center py-4 border-t border-gray-200/50">
                                     <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Total Investment</span>
-                                    <span className="text-2xl font-black text-primary-900 tracking-tighter">
+                                    <span className="text-xl md:text-2xl font-black text-primary-900 tracking-tighter">
                                         ${(displayPrice * quantity).toFixed(2)}
                                     </span>
                                 </div>
@@ -274,11 +273,11 @@ const ProductDetail = () => {
                         </div>
 
                         {/* Final Value Prop */}
-                        <div className="flex items-center space-x-6 p-6">
-                            <div className="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">🛡️</div>
+                        <div className="flex items-center space-x-4 md:space-x-6 p-4 md:p-6 bg-white rounded-3xl border border-gray-50">
+                            <div className="w-12 h-12 md:w-14 md:h-14 bg-green-50 rounded-2xl flex items-center justify-center text-xl md:text-2xl flex-shrink-0">🛡️</div>
                             <div>
-                                <h4 className="font-bold text-gray-900">KMart Quality Seal</h4>
-                                <p className="text-xs text-gray-500 font-medium">100% satisfaction or direct door-step replacement.</p>
+                                <h4 className="font-bold text-gray-900 text-sm md:text-base">KMart Quality Seal</h4>
+                                <p className="text-[10px] md:text-xs text-gray-500 font-medium">100% satisfaction or direct door-step replacement.</p>
                             </div>
                         </div>
                     </div>

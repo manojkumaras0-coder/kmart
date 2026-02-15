@@ -100,7 +100,7 @@ const ProductCard = ({ product }) => {
                         <button
                             onClick={handleAddToCart}
                             disabled={product.stock_quantity === 0 || adding}
-                            className="absolute bottom-4 right-4 w-12 h-12 bg-gray-900 text-white rounded-2xl shadow-2xl flex items-center justify-center translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 hover:bg-black disabled:hidden z-20"
+                            className="absolute bottom-4 right-4 w-12 h-12 bg-gray-900 text-white rounded-2xl shadow-2xl flex items-center justify-center translate-y-0 opacity-100 md:translate-y-2 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-300 hover:bg-black disabled:hidden z-20"
                         >
                             {adding ? (
                                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
