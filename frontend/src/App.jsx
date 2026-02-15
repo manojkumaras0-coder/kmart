@@ -31,23 +31,8 @@ function App() {
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/cart" element={<Cart />} />
 
-                        {/* Protected Routes (Checkout & Orders) */}
-                        <Route
-                            path="/checkout"
-                            element={
-                                <ProtectedRoute>
-                                    <Checkout />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/payment-success"
-                            element={
-                                <ProtectedRoute>
-                                    <Success />
-                                </ProtectedRoute>
-                            }
-                        />
+                        <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/payment-success" element={<Success />} />
 
                         {/* Redirect unknown routes */}
                         <Route path="*" element={<Navigate to="/" replace />} />

@@ -76,7 +76,7 @@ export const ordersAPI = {
 
 // Payment API
 export const paymentAPI = {
-    createCheckoutSession: () => api.post('/payment/create-checkout-session'),
+    createCheckoutSession: (data) => api.post('/payment/create-checkout-session', data),
 };
 
 export default api;

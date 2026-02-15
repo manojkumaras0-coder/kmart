@@ -38,7 +38,7 @@ const ProductDetail = () => {
 
     const handleAddToCart = async () => {
         setAdding(true);
-        const result = await addToCart(id, quantity);
+        const result = await addToCart(id, quantity, product);
         setAdding(false);
 
         if (result.success) {

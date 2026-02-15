@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
         e.preventDefault();
         e.stopPropagation();
         setAdding(true);
-        const result = await addToCart(product.id, 1);
+        const result = await addToCart(product.id, 1, product);
         setAdding(false);
 
         if (!result.success) {
