@@ -26,8 +26,11 @@ export const AuthProvider = ({ children }) => {
             setUser(JSON.parse(storedUser));
         }
         setLoading(false);
+        setError(null);
 
         // Listen for Supabase auth changes (for social login redirect)
+        if (!supabase?.auth) return;
+
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
             if (event === 'SIGNED_IN' && session) {
                 await handleSocialLogin(session);

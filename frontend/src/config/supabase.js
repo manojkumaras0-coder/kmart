@@ -7,4 +7,6 @@ if (!supabaseUrl || !supabaseAnonKey) {
     console.warn('Supabase URL or Anon Key is missing. Social login will not work.');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = (supabaseUrl && supabaseAnonKey)
+    ? createClient(supabaseUrl, supabaseAnonKey)
+    : { auth: { onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => { } } } }), signInWithOAuth: () => ({ error: new Error('Supabase not configured') }), signOut: () => { } } };
