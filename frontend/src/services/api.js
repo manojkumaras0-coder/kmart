@@ -10,6 +10,8 @@ const api = axios.create({
     },
 });
 
+export const healthCheck = () => api.get('/health');
+
 // Add token to requests
 api.interceptors.request.use(
     (config) => {

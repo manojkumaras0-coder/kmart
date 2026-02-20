@@ -18,6 +18,27 @@ export const authenticateToken = (req, res, next) => {
     });
 };
 
+// Middleware to extract user if token exists, but not fail if it doesn't
+// Used for routes like Checkout that support both guest and authenticated users
+export const extractUser = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) {
+        req.user = null;
+        return next();
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if (err) {
+            req.user = null; // Invalid token behaves as guest
+        } else {
+            req.user = user;
+        }
+        next();
+    });
+};
+
 export const protect = authenticateToken;
 
 // Middleware to check if user is admin

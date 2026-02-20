@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
+import { healthCheck } from '../services/api';
 
 const Navbar = () => {
     const { user, logout, isAuthenticated } = useAuth();
     const { cartCount } = useCart();
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const wakeUpBackend = () => {
+        healthCheck().catch(() => { });
+    };
 
     const handleLogout = () => {
         logout();
@@ -32,7 +37,7 @@ const Navbar = () => {
                     {/* Navigation - Desktop */}
                     <nav className="hidden md:flex items-center space-x-10">
                         <Link to="/" className="text-xs font-black uppercase tracking-[0.25em] text-gray-400 hover:text-primary-600 transition-colors">Home</Link>
-                        <Link to="/products" className="text-xs font-black uppercase tracking-[0.25em] text-gray-400 hover:text-primary-600 transition-colors">Marketplace</Link>
+                        <Link to="/products" onMouseEnter={wakeUpBackend} className="text-xs font-black uppercase tracking-[0.25em] text-gray-400 hover:text-primary-600 transition-colors">Marketplace</Link>
                         <Link to="/about" className="text-xs font-black uppercase tracking-[0.25em] text-gray-400 hover:text-primary-600 transition-colors">About</Link>
                         <Link to="/contact" className="text-xs font-black uppercase tracking-[0.25em] text-gray-400 hover:text-primary-600 transition-colors">Contact</Link>
                     </nav>

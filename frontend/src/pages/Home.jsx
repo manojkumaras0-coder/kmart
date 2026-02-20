@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
+import { healthCheck } from '../services/api';
 
 const Home = () => {
+    useEffect(() => {
+        // "Wake up" the backend (Render free tier) as soon as user lands on Home
+        healthCheck().catch(() => { });
+    }, []);
     const { user } = useAuth();
     const navigate = useNavigate();
 
